@@ -5,6 +5,7 @@ const clearBtn = document.querySelector(".clear-tasks");
 const filter = document.querySelector("#filter");
 const taskInput = document.querySelector("#task");
 const ul=document.querySelector('.collection')
+
 let taskList=[]
 // Load all event listeners
 // DOM Load event
@@ -25,7 +26,7 @@ document.addEventListener('click',removeTask)
 clearBtn.addEventListener('click',deleteAllTasks)
 
 // Filter tasks event
-
+filter.addEventListener('keydown',filterTasks)
 
 // Get Tasks from LS
 
@@ -85,10 +86,15 @@ function removeTask(e) {
   if(e.target.parentElement.classList.contains('delete-item')){
     //then find the task item without html tags
     let taskItem=e.target.parentElement.parentElement.innerText
-    //invoke removeTaskFromLocalStorage
+
+    confirm=window.confirm('Are you sure to remove')
+    if(confirm){
+           //invoke removeTaskFromLocalStorage
     removeTaskFromLocalStorage(taskItem)
     ///remove item from html
     e.target.parentElement.parentElement.remove()
+    }
+ 
 
   }
 }
@@ -98,6 +104,7 @@ function removeTaskFromLocalStorage(taskItem) {
     ///get index of task that will be removed
     let index= taskList.indexOf(taskItem)
     ///delete item from task list
+ 
     taskList.splice(index,1)
     //set new tasklist to localStorage
     localStorage.setItem('taskList',taskList)
@@ -111,6 +118,7 @@ function deleteAllTasks() {
 }
 
 // Filter Tasks
-function filterTasks(e) {
-  
+function filterTasks(e) {  
+  let searchValue=filter.value.toLowerCase()
+    
 }
