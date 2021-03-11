@@ -26,7 +26,7 @@ document.addEventListener('click',removeTask)
 clearBtn.addEventListener('click',deleteAllTasks)
 
 // Filter tasks event
-filter.addEventListener('keydown',filterTasks)
+filter.addEventListener('keyup',filterTasks)
 
 // Get Tasks from LS
 
@@ -85,14 +85,16 @@ function removeTask(e) {
     ///find grandFather of targetted element and check whether it contains delete item or not
   if(e.target.parentElement.classList.contains('delete-item')){
     //then find the task item without html tags
+  
     let taskItem=e.target.parentElement.parentElement.innerText
-
-    confirm=window.confirm('Are you sure to remove')
+    let confirm=window.confirm('Are you sure to remove')
     if(confirm){
+      console.log('a')
            //invoke removeTaskFromLocalStorage
     removeTaskFromLocalStorage(taskItem)
     ///remove item from html
     e.target.parentElement.parentElement.remove()
+
     }
  
 
@@ -119,6 +121,16 @@ function deleteAllTasks() {
 
 // Filter Tasks
 function filterTasks(e) {  
-  let searchValue=filter.value.toLowerCase()
+  console.log(filter.value)
+  allLi=document.querySelectorAll('li')
+  allLi.forEach(item=>{
+    if(!item.innerText.toLowerCase().startsWith(filter.value.toLowerCase())){
+      $(item).hide()
+    
+    }else{
+      $(item).show()
+    }
+  })
+
     
 }
